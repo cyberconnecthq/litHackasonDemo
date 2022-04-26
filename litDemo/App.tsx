@@ -66,10 +66,7 @@ const App = () => {
   };
 
   const divClickedHandler = () => {
-    const xx = "天降正义dsaa"
     console.log("dasdsadas")
-    debugger
-    Alert.alert(xx)
   };
   if (__DEV__) {
     NativeModules.DevSettings.setIsDebuggingRemotely(true)
@@ -85,29 +82,6 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
-          <Button onPress={divClickedHandler} title="what happened"></Button>
           <Button onPress={divClickedHandler} title="what happened"></Button>
         </View>
       </ScrollView>
