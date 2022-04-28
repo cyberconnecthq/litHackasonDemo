@@ -5,19 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Attach to Hermes application - Experimental",
-            "request": "attach",
+            "name": "Debug iOS Simulator",
+            "request": "launch",
             "type": "reactnativedirect",
-            "cwd": "${workspaceFolder}"
+            "cwd": "${workspaceFolder}",
+            "platform": "ios"
         },
         {
-            "name": "Debug iOS",
+            "name": "Debug iOS Device",
             "cwd": "${workspaceFolder}",
             "type": "reactnativedirect",
             "request": "launch",
             "platform": "ios",
-            "target": "device"
-            //"scheme": "litDemo"
+            "target": "device",
+            "scheme": "litDemo"
         },
         {
             "name": "Run iOS",
@@ -27,6 +28,12 @@
             "platform": "ios",
             "enableDebug": false,
             "scheme": "litDemo"
+        },
+        {
+            "name": "Attach to Hermes application - Experimental",
+            "request": "attach",
+            "type": "reactnativedirect",
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
