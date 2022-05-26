@@ -12,7 +12,7 @@
   "dependencies": {
     "@cyberlab/cyberconnect": "^4.4.1",
     "@walletconnect/react-native-dapp": "^1.7.7",
-    "lit-js-sdk": "^1.1.169",
+    "lit-js-sdk": "^1.1.179",
     "react": "17.0.2",
     "react-native": "0.68.1",
     "react-native-walletconnect": "^0.0.1-alpha.2",
