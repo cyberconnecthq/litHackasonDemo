@@ -64,8 +64,6 @@ export default function App(): JSX.Element {
   }, [connector]);
   return (
     <View style={[StyleSheet.absoluteFill, styles.center, styles.white]}>
-      <Text testID="tid-message">Address: {connector.accounts[0]}{"\n"}</Text>
-      
       {!connector.connected && (
         <>
           <TouchableOpacity onPress={connectWallet}>
@@ -75,6 +73,7 @@ export default function App(): JSX.Element {
       )}
       {!!connector.connected && (
         <>
+          <Text testID="tid-message">Address: {connector.accounts[0]}{"\n"}</Text>
           <TouchableOpacity onPress={signTransaction}>
             <Text>Sign a Transaction{"\n"}</Text>
           </TouchableOpacity>
