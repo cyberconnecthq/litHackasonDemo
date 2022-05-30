@@ -1,16 +1,16 @@
 import { HARDHAT_PORT, HARDHAT_PRIVATE_KEY } from '@env';
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import localhost from 'react-native-localhost';
 import Web3 from 'web3';
-
 import Hello from '../artifacts/contracts/Hello.sol/Hello.json';
 
 const styles = StyleSheet.create({
   center: { alignItems: 'center', justifyContent: 'center' },
   // eslint-disable-next-line react-native/no-color-literals
   white: { backgroundColor: 'white' },
+  title: { color: 'blue', fontWeight: '600' },
 });
 
 const shouldDeployContract = async (web3, abi, data, from: string) => {
@@ -62,23 +62,31 @@ export default function App(): JSX.Element {
   const killSession = React.useCallback(() => {
     return connector.killSession();
   }, [connector]);
+
+  const connectLit = ()=> {
+    console.log("what happend");
+  }
+
   return (
     <View style={[StyleSheet.absoluteFill, styles.center, styles.white]}>
       {!connector.connected && (
         <>
           <TouchableOpacity onPress={connectWallet}>
-            <Text>Connect a Wallet{"\n"}</Text>
+            <Text style={styles.title}>Connect a Wallet{"\n\n"}</Text>
           </TouchableOpacity>
         </>
       )}
       {!!connector.connected && (
         <>
-          <Text testID="tid-message">Address: {connector.accounts[0]}{"\n"}</Text>
+          <Text testID="tid-message">Address: {connector.accounts[0]}{"\n\n"}</Text>
           <TouchableOpacity onPress={signTransaction}>
-            <Text>Sign a Transaction{"\n"}</Text>
+            <Text style={styles.title}>Sign a Transaction{"\n\n"}</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={killSession}>
-            <Text>Kill Session{"\n"}</Text>
+            <Text style={styles.title}>Kill Session{"\n\n"}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={connectLit}>
+            <Text style={styles.title}>Connect Lit{"\n\n"}</Text>
           </TouchableOpacity>
         </>
       )}
