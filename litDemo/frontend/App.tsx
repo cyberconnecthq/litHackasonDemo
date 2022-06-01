@@ -80,7 +80,31 @@ export default function App(): JSX.Element {
           try {
             const chain = 'ethereum';
             const authSig = await LitJsSdk.checkAndSignAuthMessage({chain});
-            
+            const accessControlConditions = [
+              {
+                contractAddress: '0xA54F7579fFb3F98bd8649fF02813F575f9b3d353',
+                standardContractType: 'ERC1155',
+                chain,
+                method: 'balanceOf',
+                parameters: [
+                  ':userAddress',
+                  '9541'
+                ],
+                returnValueTest: {
+                  comparator: '>',
+                  value: '0'
+                }
+              }
+            ]
+
+            const { symmetricKey, encryptedZip } = await LitJsSdk.zipAndEncryptString("TestString");
+            // convert data url to blob
+            const encryptedZipBlob = await (await fetch("https://ipfs.litgateway.com/ipfs/QmQ39fXF1iDYPSYFrpaXZh5u1nmLcNWAHDT9tScpa66yge")).blob();
+            // decrypt the zip
+            const decryptedFiles = await LitJsSdk.decryptZip(encryptedZipBlob, symmetricKey);
+            // pull out the data url that contains the now-decrypted HTML
+            const mediaGridHtmlBody = await decryptedFiles['string.txt'].async('text');
+          
           } catch(e) {
             console.log(e);
           }
