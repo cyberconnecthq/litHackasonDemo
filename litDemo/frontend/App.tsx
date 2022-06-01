@@ -1,10 +1,11 @@
 import { HARDHAT_PORT, HARDHAT_PRIVATE_KEY } from '@env';
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import localhost from 'react-native-localhost';
 import Web3 from 'web3';
 import Hello from '../artifacts/contracts/Hello.sol/Hello.json';
+import LitJsSdk from 'lit-js-sdk';
 
 const styles = StyleSheet.create({
   center: { alignItems: 'center', justifyContent: 'center' },
@@ -24,11 +25,14 @@ const shouldDeployContract = async (web3, abi, data, from: string) => {
 
 export default function App(): JSX.Element {
   const connector = useWalletConnect();
+  const litClient = new LitJsSdk.LitNodeClient();
   const [message, setMessage] = React.useState<string>('Loading...');
+
   const web3 = React.useMemo(
     () => new Web3(new Web3.providers.HttpProvider(`http://${localhost}:${HARDHAT_PORT}`)),
     [HARDHAT_PORT]
   );
+
   React.useEffect(() => {
     void (async () => {
       const { address } = await web3.eth.accounts.privateKeyToAccount(HARDHAT_PRIVATE_KEY);
@@ -41,9 +45,11 @@ export default function App(): JSX.Element {
       setMessage(await contract.methods.sayHello('React Native').call());
     })();
   }, [web3, shouldDeployContract, setMessage, HARDHAT_PRIVATE_KEY]);
+
   const connectWallet = React.useCallback(() => {
     return connector.connect();
   }, [connector]);
+
   const signTransaction = React.useCallback(async () => {
     try {
        await connector.signTransaction({
@@ -59,13 +65,38 @@ export default function App(): JSX.Element {
       console.error(e);
     }
   }, [connector]);
+
   const killSession = React.useCallback(() => {
     return connector.killSession();
   }, [connector]);
 
-  const connectLit = ()=> {
-    console.log("what happend");
-  }
+  const connectLit = () => {
+    litClient.connect();
+    Alert.alert(
+      litClient.ready ? "Lit is ready" : "Wait",
+      "",
+      litClient.ready ? [
+        { text: "task 1", onPress: async () => {
+          try {
+            const chain = 'ethereum';
+            const authSig = await LitJsSdk.checkAndSignAuthMessage({chain});
+            
+          } catch(e) {
+            console.log(e);
+          }
+        } },
+        { text: "task 2", onPress: () => {
+
+        } },
+        { text: "task 3", onPress: () => {
+
+        } },
+        { text: "Cancel", onPress: () => console.log("Cancel") }
+      ] : [
+        { text: "OK", onPress: () => console.log("OK") }
+      ]
+    );
+  };
 
   return (
     <View style={[StyleSheet.absoluteFill, styles.center, styles.white]}>
@@ -76,7 +107,7 @@ export default function App(): JSX.Element {
           </TouchableOpacity>
         </>
       )}
-      {!!connector.connected && (
+      {connector.connected && (
         <>
           <Text testID="tid-message">Address: {connector.accounts[0]}{"\n\n"}</Text>
           <TouchableOpacity onPress={signTransaction}>
